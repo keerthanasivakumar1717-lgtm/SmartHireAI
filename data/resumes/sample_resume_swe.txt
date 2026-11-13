@@ -1,0 +1,29 @@
+Priya Verma
+Email: priya.verma@example.com | Phone: +91 91234 56789
+Location: Pune, India | GitHub: github.com/priyaverma-sample
+
+TARGET ROLE: Software Engineer - Backend
+
+PROFESSIONAL SUMMARY
+Backend developer with 1 year of experience building scalable RESTful APIs with Python, FastAPI, and PostgreSQL. Passionate about microservice architectures, database optimization, and CI/CD pipelines.
+
+TECHNICAL SKILLS
+- Languages: Python, Go, SQL
+- Frameworks: FastAPI, Flask, SQLAlchemy
+- Databases & Caching: PostgreSQL, Redis, MongoDB
+- DevOps & Tools: Docker, Git, GitHub Actions, Linux, Postman
+
+EXPERIENCE
+Associate Software Engineer | NextGen Cloud Solutions (July 2023 - Present)
+- Developed and maintained 8 backend microservice endpoints using Python and FastAPI.
+- Optimized slow SQL queries on PostgreSQL, reducing average query response time from 350ms to 95ms.
+- Integrated Redis caching for frequent user authorization lookups, decreasing database load by 25%.
+- Wrote automated unit and integration tests using Pytest, achieving 82% code coverage.
+
+PROJECTS
+Task Orchestrator API
+- Designed an asynchronous job worker queue in Python with Celery and Redis.
+- Implemented JWT token-based authentication and rate limiting for API security.
+
+EDUCATION
+B.E. in Information Technology, Pune University (Graduated 2023, First Class with Distinction)

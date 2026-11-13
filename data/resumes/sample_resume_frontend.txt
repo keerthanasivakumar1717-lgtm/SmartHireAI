@@ -1,0 +1,27 @@
+Rohan Mehta
+Email: rohan.mehta.ui@example.com | Phone: +91 99887 76655
+Location: Mumbai, India | Portfolio: rohanmehta-portfolio.example.com
+
+TARGET ROLE: Frontend Developer
+
+PROFESSIONAL SUMMARY
+Frontend engineer specializing in React, TypeScript, and modern CSS frameworks. Focused on creating accessible, pixel-perfect user interfaces and responsive web applications.
+
+TECHNICAL SKILLS
+- Frontend: JavaScript (ES6+), TypeScript, React, Next.js, Redux Toolkit, HTML5, CSS3, Tailwind CSS
+- Tooling: Webpack, Vite, Git, npm, Jest, React Testing Library, Figma
+- Concepts: Responsive Web Design, Web Performance Optimization, REST API Integration
+
+EXPERIENCE
+Frontend Developer Intern | DigitalCanvas Studio (Feb 2024 - Present)
+- Built interactive UI components for a client portal using React and Tailwind CSS.
+- Converted 15+ complex Figma UI/UX screens into responsive web pages.
+- Improved frontend bundle load time by 30% through code splitting and lazy loading of heavy images.
+
+PROJECTS
+DevBoard: Developer Portfolio & Job Dashboard
+- Built a single-page web app in React and TypeScript with dark mode and filterable job listings.
+- Integrated public REST APIs and handled asynchronous states with loading skeletons and error boundaries.
+
+EDUCATION
+B.Tech in Computer Science, Mumbai University (Graduating 2024)
