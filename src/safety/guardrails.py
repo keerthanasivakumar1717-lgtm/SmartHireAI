@@ -20,9 +20,9 @@ CAREER_KEYWORDS = {
 
 # Prompt injection and jailbreak patterns
 PROMPT_INJECTION_PATTERNS = [
-    r"ignore (?:all )?(?:previous|above) (?:instructions|rules|prompts)",
-    r"disregard (?:all )?(?:previous|system) (?:instructions|prompts)",
-    r"(?:what is|show me|print|reveal|output|display) (?:your|the) (?:system prompt|instructions|secret|api key)",
+    r"ignore (?:all )?(?:previous|above|system)?\s*(?:instructions|rules|prompts)",
+    r"disregard (?:all )?(?:previous|above|system)?\s*(?:instructions|prompts)",
+    r"(?:what is|show me|print|reveal|output|display|dump) (?:your|the)?\s*(?:system prompt|instructions|secret|api key|keys)",
     r"you are now (?:dan|an unfiltered|a new|jailbroken)",
     r"bypass (?:safety|guardrails|filters)",
     r"drop database|exec xp_cmdshell|<script>|union select",
