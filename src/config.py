@@ -79,3 +79,4 @@ for path in [
 def is_gemini_configured() -> bool:
     """Check if a non-empty Gemini API key is available."""
     return bool(GEMINI_API_KEY and GEMINI_API_KEY != "your_gemini_api_key_here")
+

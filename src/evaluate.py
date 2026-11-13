@@ -5,16 +5,12 @@ and Prompt Engineering Comparison (Baseline vs Production).
 Generates reports/answer_quality.md.
 """
 
-from pathlib import Path
 from typing import List, Dict, Any
 import time
 
 from src import config
 from src.search.job_search import get_default_job_searcher
 from src.mentor.rag_chain import get_career_mentor
-from src.safety.guardrails import validate_user_query
-from src.generate.prompts import PROMPT_LIBRARY
-from src.parsing.resume_parser import ParsedResume, ExperienceItem, EducationItem
 
 # 1. Five Test Candidate Profiles for Retrieval Hit Rate Evaluation
 TEST_PROFILES = [
@@ -102,12 +98,14 @@ def evaluate_retrieval_hit_rate() -> Dict[str, Any]:
     hits = 0
 
     for prof in TEST_PROFILES:
-        query_text = f"Target Role: {prof['target_role']}. Key Skills: {', '.join(prof['skills'])}"
-        matches = searcher.search(query_text, candidate_skills=prof["skills"], top_k=3)
+        skills = list(prof["skills"])
+        query_text = f"Target Role: {prof['target_role']}. Key Skills: {', '.join(skills)}"
+        matches = searcher.search(query_text, candidate_skills=skills, top_k=3)
 
         top_1_job = matches[0]["title"] if matches else "None"
+        expected_title = str(prof["expected_job_title"]).lower()
         matched_expected = any(
-            prof["expected_job_title"].lower() in m["title"].lower() for m in matches[:2]
+            expected_title in str(m.get("title", "")).lower() for m in matches[:2]
         )
 
         if matched_expected:
@@ -137,7 +135,7 @@ def evaluate_rag_grounding_and_hallucination() -> List[Dict[str, Any]]:
     eval_results = []
 
     for bq in BENCHMARK_QUESTIONS:
-        query = bq["query"]
+        query = str(bq["query"])
         res = mentor.answer_question(query)
 
         answer = res.get("answer", "")
@@ -312,3 +310,4 @@ def run_full_evaluation():
 
 if __name__ == "__main__":
     run_full_evaluation()
+

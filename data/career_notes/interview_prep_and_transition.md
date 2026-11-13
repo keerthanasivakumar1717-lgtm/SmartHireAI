@@ -24,3 +24,4 @@ Technical hiring managers frequently evaluate soft skills, problem-solving, and 
 1. **Resume Walkthrough & Deep-Dive:** Be prepared to explain architectural choices, trade-offs, and failure modes in any project listed on your CV.
 2. **Coding Assessment / Live Problem Solving:** Focus on communicating your thinking aloud before writing code, writing test cases for edge cases, and analyzing Big-O complexity.
 3. **System Design or Project Architecture (for Mid/Senior roles):** Discussing load balancing, caching, database indexing, and fault tolerance.
+

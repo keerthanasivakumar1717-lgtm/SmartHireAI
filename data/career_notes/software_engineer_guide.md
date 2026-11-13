@@ -30,3 +30,4 @@ Software Engineers design, construct, test, and maintain software applications a
 - **Avoid listing 20 programming languages** without demonstrated project experience. Prioritize 2-3 primary languages where you can explain memory management, concurrency, or framework internals.
 - **Quantify Project Impact:** Instead of writing "Built a backend in Python", write: *"Engineered a RESTful microservice in FastAPI and PostgreSQL, serving 1,200 daily requests with sub-100ms response times."*
 - **Highlight Tests and CI/CD:** Listing unit test coverage (pytest, Jest) immediately differentiates student resumes from average candidates.
+

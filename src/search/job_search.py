@@ -22,12 +22,13 @@ from src.search.embed import generate_embedding, generate_embeddings_batch
 class JobSearchIndex:
     """FAISS-backed semantic search index for job postings."""
 
-    def __init__(self, index_path: Path = None, metadata_path: Path = None):
+    def __init__(self, index_path: Optional[Path] = None, metadata_path: Optional[Path] = None):
         self.index_path = index_path or config.FAISS_INDEX_FILE
         self.metadata_path = metadata_path or config.FAISS_METADATA_FILE
-        self.index = None
-        self.jobs_data: Optional[pd.DataFrame] = None
+        self.index: Any = None
+        self.jobs_data: Optional[List[Dict[str, Any]]] = None
         self.is_faiss_available = False
+        self.faiss: Any = None
 
         try:
             import faiss
@@ -37,7 +38,7 @@ class JobSearchIndex:
             self.faiss = None
             self.is_faiss_available = False
 
-    def load_and_normalize_jobs_csv(self, csv_path: Path = None) -> List[Dict[str, Any]]:
+    def load_and_normalize_jobs_csv(self, csv_path: Optional[Path] = None) -> List[Dict[str, Any]]:
         """Load CSV and normalize column names using aliases. Returns list of record dicts."""
         path = csv_path or config.DEFAULT_JOBS_CSV
         if not path.exists():
@@ -84,7 +85,7 @@ class JobSearchIndex:
 
         return records
 
-    def build_index(self, csv_path: Path = None) -> int:
+    def build_index(self, csv_path: Optional[Path] = None) -> int:
         """
         Embed job descriptions and build FAISS index.
         Saves index and metadata to disk.
@@ -111,7 +112,7 @@ class JobSearchIndex:
         # Ensure vectorstore directory exists
         config.VECTORSTORE_DIR.mkdir(parents=True, exist_ok=True)
 
-        if self.is_faiss_available:
+        if self.is_faiss_available and self.faiss is not None:
             faiss_index = self.faiss.IndexFlatIP(dimension)
             faiss_index.add(embeddings)
             self.faiss.write_index(faiss_index, str(self.index_path))
@@ -136,7 +137,7 @@ class JobSearchIndex:
         with open(self.metadata_path, "rb") as f:
             self.jobs_data = pickle.load(f)
 
-        if self.is_faiss_available and self.index_path.exists():
+        if self.is_faiss_available and self.faiss is not None and self.index_path.exists():
             self.index = self.faiss.read_index(str(self.index_path))
             return True
         elif self.index_path.with_suffix(".npy").exists():
@@ -169,26 +170,32 @@ class JobSearchIndex:
                 else:
                     raise RuntimeError("FAISS index is not built and no job dataset is present.")
 
+        if self.jobs_data is None or len(self.jobs_data) == 0:
+            return []
+
+        jobs_list: List[Dict[str, Any]] = list(self.jobs_data)
         query_vec = generate_embedding(query_text)
         candidate_skills_set = {s.lower().strip() for s in (candidate_skills or [])}
 
         results = []
 
-        if self.is_faiss_available and hasattr(self.index, "search"):
+        if self.is_faiss_available and self.index is not None and hasattr(self.index, "search"):
             # FAISS search
             query_matrix = np.expand_dims(query_vec, axis=0)
-            scores, indices = self.index.search(query_matrix, min(top_k * 2, len(self.jobs_data)))
+            scores, indices = self.index.search(query_matrix, min(top_k * 2, len(jobs_list)))
             raw_scores = scores[0]
             matched_indices = indices[0]
-        else:
+        elif self.index is not None:
             # NumPy matrix dot product fallback
-            matrix = self.index  # N x D
+            matrix = np.asarray(self.index)  # N x D
             raw_scores = np.dot(matrix, query_vec)
-            matched_indices = np.argsort(raw_scores)[::-1][: min(top_k * 2, len(self.jobs_data))]
+            matched_indices = np.argsort(raw_scores)[::-1][: min(top_k * 2, len(jobs_list))]
             raw_scores = raw_scores[matched_indices]
+        else:
+            return []
 
         for score, idx in zip(raw_scores, matched_indices):
-            if idx < 0 or idx >= len(self.jobs_data):
+            if idx < 0 or idx >= len(jobs_list):
                 continue
 
             # Convert cosine score (-1 to 1) to percentage (0% to 100%)
@@ -196,10 +203,7 @@ class JobSearchIndex:
             if norm_score < threshold:
                 continue
 
-            if hasattr(self.jobs_data, "iloc"):
-                row = self.jobs_data.iloc[idx].to_dict()
-            else:
-                row = dict(self.jobs_data[idx])
+            row = dict(jobs_list[idx])
 
             # Analyze skill overlap
             job_skills_raw = str(row.get("skills", ""))

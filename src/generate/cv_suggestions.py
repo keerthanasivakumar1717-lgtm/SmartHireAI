@@ -173,3 +173,4 @@ def generate_cv_improvements(
             print(f"[SmartHireAI] Gemini CV suggestion failed ({e}). Falling back to offline generator.")
 
     return generate_offline_cv_suggestions(profile, target_job)
+

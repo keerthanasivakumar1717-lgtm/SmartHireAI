@@ -5,7 +5,6 @@ Handles multi-format document text extraction (PDF, DOCX, TXT) with robust error
 
 from pathlib import Path
 from typing import Union, BinaryIO
-import io
 import re
 
 
@@ -157,3 +156,4 @@ def load_resume_document(
         raise UnsupportedFileFormatError(
             f"Unsupported file format '{ext}'. SmartHireAI supports PDF (.pdf), Word (.docx), and Text (.txt) resumes."
         )
+

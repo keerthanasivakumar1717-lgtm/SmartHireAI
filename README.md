@@ -188,3 +188,4 @@ python -m src.evaluate
 - **Input Validation:** Every prompt submitted to the LLM passes through `src/safety/guardrails.py` to prevent system prompt injection and out-of-domain abuse.
 - **Strict Grounding:** The Career Mentor is constrained to answer only from retrieved context passages. If a user asks about medical advice, general trivia, or unmentioned topics, the mentor politely declines.
 - **Data Privacy:** Resumes uploaded in the UI are held in memory during the session and are never transmitted to external services other than the user-configured LLM provider.
+

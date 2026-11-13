@@ -32,3 +32,4 @@ A Data Analyst translates raw numbers into actionable business insights. Typical
 - Be prepared for a live SQL coding round (often involving joins, group-bys, and date filtering).
 - Be ready to walk through a dashboard you built: Explain how you chose your charts and what business action was taken based on the insights.
 - Know how to handle messy data: dealing with duplicates, inconsistent date formats, and missing values.
+

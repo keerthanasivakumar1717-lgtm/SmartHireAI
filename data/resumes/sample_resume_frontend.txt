@@ -25,3 +25,4 @@ DevBoard: Developer Portfolio & Job Dashboard
 
 EDUCATION
 B.Tech in Computer Science, Mumbai University (Graduating 2024)
+

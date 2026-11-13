@@ -27,3 +27,4 @@ Task Orchestrator API
 
 EDUCATION
 B.E. in Information Technology, Pune University (Graduated 2023, First Class with Distinction)
+

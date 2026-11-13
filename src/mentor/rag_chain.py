@@ -4,8 +4,7 @@ Retrieval-Augmented Generation chatbot grounded strictly in the job corpus and c
 orchestrated with LangChain principles and strict anti-hallucination guardrails.
 """
 
-from pathlib import Path
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Optional
 import re
 
 from src import config
@@ -117,10 +116,10 @@ class CareerMentorRAG:
 
     def retrieve(self, query: str, top_k: int = 4) -> List[Tuple[KnowledgeChunk, float]]:
         """Retrieve the top-K most semantically relevant chunks for a user query."""
-        if not self._is_initialized or not self.chunks:
+        if not self._is_initialized or not self.chunks or self.chunk_embeddings is None:
             self.load_knowledge_base()
 
-        if not self.chunks:
+        if not self.chunks or self.chunk_embeddings is None:
             return []
 
         query_vec = generate_embedding(query)
@@ -136,7 +135,7 @@ class CareerMentorRAG:
     def answer_question(
         self,
         query: str,
-        chat_history: List[Dict[str, str]] = None,
+        chat_history: Optional[List[Dict[str, str]]] = None,
         prefer_offline: bool = False
     ) -> Dict[str, Any]:
         """
@@ -279,3 +278,4 @@ def get_career_mentor() -> CareerMentorRAG:
         _GLOBAL_MENTOR = CareerMentorRAG()
         _GLOBAL_MENTOR.load_knowledge_base()
     return _GLOBAL_MENTOR
+

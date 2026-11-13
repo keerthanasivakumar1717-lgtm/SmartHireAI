@@ -240,3 +240,4 @@ def parse_resume(resume_text: str, prefer_offline: bool = False) -> ParsedResume
             return parsed
 
     return parse_resume_heuristically(resume_text)
+

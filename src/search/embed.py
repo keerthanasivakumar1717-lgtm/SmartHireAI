@@ -4,7 +4,7 @@ Generates high-dimensional semantic vector embeddings using local sentence-trans
 with optional Google Gemini cloud embeddings and a deterministic TF-IDF fallback.
 """
 
-from typing import List, Union
+from typing import List, Optional
 import numpy as np
 
 from src import config
@@ -13,7 +13,7 @@ from src import config
 _CACHED_LOCAL_MODEL = None
 
 
-def _get_local_sentence_transformer(model_name: str = None):
+def _get_local_sentence_transformer(model_name: Optional[str] = None):
     """Lazy load and cache sentence-transformers model."""
     global _CACHED_LOCAL_MODEL
     if _CACHED_LOCAL_MODEL is None:
@@ -61,7 +61,7 @@ def _deterministic_fallback_embedding(text: str, dim: int = 384) -> np.ndarray:
     return vec
 
 
-def generate_embedding(text: str, model_name: str = None) -> np.ndarray:
+def generate_embedding(text: str, model_name: Optional[str] = None) -> np.ndarray:
     """
     Generate a 1D float32 numpy embedding vector for a single text string.
     """
@@ -89,7 +89,7 @@ def generate_embedding(text: str, model_name: str = None) -> np.ndarray:
     return _deterministic_fallback_embedding(text, dim=384)
 
 
-def generate_embeddings_batch(texts: List[str], model_name: str = None) -> np.ndarray:
+def generate_embeddings_batch(texts: List[str], model_name: Optional[str] = None) -> np.ndarray:
     """
     Generate a 2D float32 numpy array (N x D) for a list of text strings.
     """
@@ -110,3 +110,4 @@ def generate_embeddings_batch(texts: List[str], model_name: str = None) -> np.nd
     # Fallback to row-by-row deterministic embedding
     vectors = [_deterministic_fallback_embedding(t, dim=384) for t in texts]
     return np.vstack(vectors).astype(np.float32)
+

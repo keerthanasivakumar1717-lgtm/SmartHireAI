@@ -151,3 +151,4 @@ Before converting this markdown specification to the final PDF deliverable (`rep
 - [ ] Include your GitHub repository link and deployed Streamlit Community Cloud link.
 - [ ] Run `python -m src.evaluate` and attach the generated metrics from `reports/answer_quality.md`.
 - [ ] Export to PDF using VS Code Markdown-to-PDF extension, Typora, or Pandoc.
+

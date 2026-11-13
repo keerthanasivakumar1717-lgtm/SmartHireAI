@@ -1,0 +1,10 @@
+search-path = ["."]
+python-interpreter = "C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
+
+project-includes = [
+    "src/**/*.py",
+    "app/**/*.py",
+]
+
+[errors]
+missing-import = "ignore"

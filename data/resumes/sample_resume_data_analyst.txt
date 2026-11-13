@@ -32,3 +32,4 @@ E-Commerce Customer Churn Analysis (Capstone Project | 2023)
 CERTIFICATIONS
 - Google Data Analytics Professional Certificate (Coursera)
 - SQL for Data Science (UC Davis)
+
