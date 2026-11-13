@@ -1,6 +1,6 @@
 # SmartHireAI — Capstone Evaluation Report: Answer Quality & System Benchmarks
 
-**Generated:** 2026-11-13 12:25:28  
+**Generated:** 2026-11-13 12:26:32  
 **Evaluation Scope:** Retrieval Relevance, Grounding Adherence, Anti-Hallucination Guardrails, and Prompt Optimization.
 
 ---

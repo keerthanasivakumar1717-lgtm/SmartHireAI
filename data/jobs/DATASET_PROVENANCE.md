@@ -29,3 +29,4 @@ To replace this synthetic sample with a real pre-collected dataset:
    ```ini
    JOBS_DATASET_PATH=data/jobs/kaggle_jobs.csv
    ```
+
